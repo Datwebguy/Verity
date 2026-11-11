@@ -1,0 +1,23 @@
+name: verity-cycle
+on:
+  schedule: [{cron: "17 * * * *"}]
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  cycle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - name: Run one agent cycle (receipts, grading, site)
+        env:
+          RYO_MCP_KEY: ${{ secrets.RYO_MCP_KEY }}
+        run: python -m verity loop --symbols "${{ vars.VERITY_SYMBOLS || 'BTC,ETH,SOL' }}" --once
+      - name: Commit results
+        run: |
+          git config user.name "verity-bot"
+          git config user.email "verity-bot@users.noreply.github.com"
+          git add data docs
+          git diff --cached --quiet || git commit -m "verity: cycle $(date -u +%FT%TZ)" && git push

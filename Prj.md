@@ -9,6 +9,9 @@ An autonomous agent that produces public, graded practice decisions from live RY
 ## Tracks
 - Autonomous Agents (primary)
 - New Skills (secondary)
+- Dashboards & Interfaces (the public page may also qualify; entries can cross tracks)
+
+Note: the official page defines New Skills as a new research tool RYO does not have, following the published tool specification. Verity's skill server (`verity/skill.py`) exposes receipt, grade and scoreboard tools over MCP-style JSON-RPC; confirm against the builder guide.
 
 ## Hackathon
 - Event: RYO-CHAN Hackathon 2026

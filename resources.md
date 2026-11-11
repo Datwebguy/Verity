@@ -6,6 +6,9 @@
 - MCP endpoint: https://app-ryochan.com/api/mcp
 
 ## RYO-CHAN tools (read-only)
+Per the official hackathon page: market_overview, scan_market, analyze_token, deep_analysis, compare_tokens, check_safety, supported_tokens.
+The list below was supplied with the project; monitor_market_sentiment_shift is NOT on the official page. Run `python -m verity tools` with a valid key to see what the live server actually offers.
+
 - market_overview
 - scan_market
 - analyze_token
