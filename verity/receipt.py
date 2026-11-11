@@ -7,7 +7,7 @@ from .decide import decide
 from .ryo import Client, RyoError
 
 REQUIRED = ("analyze_token", "deep_analysis")
-OPTIONAL = ("check_safety", "market_overview")
+OPTIONAL = ("market_overview", "monitor_market_sentiment_shift")
 GRADE_FIELDS = ("grade", "grade_timestamp", "grade_price", "grade_return_pct", "grade_note")
 
 
@@ -25,10 +25,13 @@ def make_receipt(client: Client, symbol, grade_hours=24.0):
     tools, raw, ok_evidence = [], {}, {}
     for name in REQUIRED + OPTIONAL:
         try:
-            data = client.call(name, symbol)
-            tools.append({"name": name, "status": "ok", "detail": None})
-            raw[name] = data
-            ok_evidence[name] = data
+            env = client.call(name, symbol)
+            detail = None
+            if env.get("status") == "partial":
+                detail = "partial: " + "; ".join(env.get("warnings") or ["incomplete evidence sections"])[:200]
+            tools.append({"name": name, "status": "ok", "detail": detail, "data_mode": env.get("data_mode")})
+            raw[name] = env
+            ok_evidence[name] = env.get("data", {})
         except RyoError as e:
             tools.append({"name": name, "status": e.status, "detail": e.message})
             raw[name] = {"unavailable": True, "status": e.status, "reason": e.message}

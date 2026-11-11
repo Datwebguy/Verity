@@ -91,9 +91,9 @@ def decide(evidence):
                     score += 1; notes.append("%s says %r (bullish)" % (name, v[:40])); break
                 if any(w in low for w in BEAR) and not any(w in low for w in BULL):
                     score -= 1; notes.append("%s says %r (bearish)" % (name, v[:40])); break
-    unsafe = "check_safety" in evidence and _safety_flag(evidence["check_safety"])
+    unsafe = "deep_analysis" in evidence and _safety_flag(evidence["deep_analysis"])
     if unsafe:
-        notes.append("check_safety flagged elevated risk")
+        notes.append("deep_analysis flagged elevated risk")
     signals["score"] = score
 
     required_ok = "analyze_token" in evidence and "deep_analysis" in evidence
@@ -119,7 +119,7 @@ def decide(evidence):
         invalidation = "%s if price %s %s" % (
             "Wrong" , "closes below" if action == "long" else "closes above", inv_price)
     elif action == "avoid":
-        invalidation = "Re-evaluate if check_safety stops flagging risk."
+        invalidation = "Re-evaluate if deep_analysis stops flagging risk."
     else:
         invalidation = "No directional call; re-evaluate on the next receipt."
 
@@ -129,7 +129,7 @@ def decide(evidence):
     thesis = {
         "long": "Evidence leans bullish (score %+d); practice long." % score,
         "short": "Evidence leans bearish (score %+d); practice short." % score,
-        "avoid": "Safety check flagged elevated risk; practice avoid.",
+        "avoid": "Research flagged elevated risk; practice avoid.",
         "watch": "Evidence is thin, mixed or incomplete (score %+d); practice watch." % score,
     }[action]
     return {"action": action, "confidence": round(conf, 2), "thesis": thesis,

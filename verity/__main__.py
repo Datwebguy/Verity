@@ -41,6 +41,13 @@ def cmd_tools(a):
         sys.exit(1)
 
 
+def cmd_health(a):
+    import json, os, urllib.request
+    url = os.environ.get("RYO_MCP_URL", "https://app-ryochan.com/api/mcp").rstrip("/") + "/health"
+    with urllib.request.urlopen(url, timeout=15) as r:
+        print(json.dumps(json.loads(r.read()), indent=2))
+
+
 def cmd_loop(a):
     syms = [s for s in a.symbols.split(",") if s]
     while True:
@@ -64,6 +71,7 @@ def main():
     s = sp.add_parser("receipt"); s.add_argument("symbols", nargs="+"); s.add_argument("--hours", type=float); s.set_defaults(f=cmd_receipt)
     s = sp.add_parser("grade"); s.add_argument("--force", action="store_true", help="grade now, ignoring the window (demo only)"); s.set_defaults(f=cmd_grade)
     sp.add_parser("build").set_defaults(f=lambda a: print("built", site.build(), "receipts"))
+    sp.add_parser("health").set_defaults(f=cmd_health)
     sp.add_parser("tools").set_defaults(f=cmd_tools)
     s = sp.add_parser("serve"); s.add_argument("--port", type=int, default=8787); s.set_defaults(f=lambda a: skill.serve(port=a.port))
     s = sp.add_parser("loop"); s.add_argument("--symbols", required=True); s.add_argument("--every", type=int, default=3600)

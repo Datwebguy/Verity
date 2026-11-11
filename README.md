@@ -21,6 +21,21 @@ A working agent that calls RYO-CHAN tools, writes a practice receipt, grades it 
 - Do not place real trades.
 - Make failures visible.
 
+## RYO-CHAN tools used, and why
+| Tool | Role in Verity |
+|------|----------------|
+| `analyze_token` | Required. Quick structured evidence: price, performance, technicals. Also the price source for grading. |
+| `deep_analysis` | Required. Comprehensive read on the token: context, risks, derivatives. |
+| `market_overview` | Optional context: broad market regime. Cached per run. |
+| `monitor_market_sentiment_shift` | Optional context: 7-day sentiment change. Cached per run. |
+
+How the RYO result contract is honoured (builder guide section 4 and 10):
+- `status: unavailable` is recorded as a failure, never as zero. `partial` is kept and annotated.
+- `data_mode: simulated` is excluded from evidence. Grading only uses `data_mode: live` prices.
+- Decisions read structured `data` fields, not summary text. Full responses are stored in `raw_evidence`.
+- Only 503 and network errors are retried (backoff with jitter). 429 is recorded as `rate_limited`, not retried.
+- The live catalog (`python -m verity tools`) is the source of truth for tool schemas.
+
 ## Run it
 Python 3.9+, no dependencies.
 

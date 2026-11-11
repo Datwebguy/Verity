@@ -5,6 +5,8 @@ ok / failed / rate_limited / unavailable. Nothing is ever fabricated.
 """
 import json
 import os
+import random
+import time
 import urllib.error
 import urllib.request
 
@@ -52,7 +54,7 @@ def http_transport(url, key, timeout):
 
 
 class Client:
-    def __init__(self, key=None, url=None, timeout=30, transport=None):
+    def __init__(self, key=None, url=None, timeout=60, transport=None, retries=2, sleep=time.sleep):
         self.key = key if key is not None else os.environ.get("RYO_MCP_KEY", "")
         self.url = url or os.environ.get("RYO_MCP_URL", DEFAULT_URL)
         self.timeout = timeout
@@ -61,6 +63,9 @@ class Client:
         self._id = 0
         self._ready = False
         self._tools = None
+        self.retries = retries
+        self._sleep = sleep
+        self._cache = {}
 
     def _transport(self):
         if self._send:
@@ -77,7 +82,7 @@ class Client:
         if not notify:
             self._id += 1
             payload["id"] = self._id
-        status, text, sid = send(payload, self._session)
+        status, text, sid = self._send_retry(send, payload)
         if sid:
             self._session = sid
         if status == 429:
@@ -100,13 +105,24 @@ class Client:
             raise RyoError("rate_limited" if "rate" in low and "limit" in low else "failed", m[:300])
         return msg.get("result")
 
+    def _send_retry(self, send, payload):
+        """Retry only 503 and network errors with backoff+jitter. Never retry 429 or validation failures."""
+        for attempt in range(self.retries + 1):
+            try:
+                status, text, sid = send(payload, self._session)
+                if status != 503 or attempt == self.retries:
+                    return status, text, sid
+            except RyoError as e:
+                if e.status != "unavailable" or attempt == self.retries:
+                    raise
+            self._sleep(2 ** attempt + random.random())
+
     def _ensure(self):
         if self._ready:
             return
         self._rpc("initialize", {
-            "protocolVersion": "2025-03-26", "capabilities": {},
+            "protocolVersion": "2024-11-05", "capabilities": {},
             "clientInfo": {"name": "verity", "version": "0.1.0"}})
-        self._rpc("notifications/initialized", notify=True)
         self._ready = True
 
     def tools(self):
@@ -124,16 +140,21 @@ class Client:
             raise RyoError("unavailable", "tool %r not offered by server (offered: %s)" % (name, ", ".join(sorted(tools)) or "none"))
         args = args_for(tools[name].get("inputSchema"), symbol)
         res = self._rpc("tools/call", {"name": name, "arguments": args}) or {}
+        key = (name, json.dumps(args, sort_keys=True))
+        if not args and key in self._cache:  # market-wide reads are cached for the life of this client
+            return self._cache[key]
         parts = [c.get("text", "") for c in res.get("content", []) if c.get("type") == "text"]
         if res.get("isError"):
             raise RyoError("failed", (" ".join(parts) or "tool reported an error")[:300])
-        if res.get("structuredContent") is not None:
-            return res["structuredContent"]
         joined = "\n".join(parts)
         try:
-            return json.loads(joined)
+            obj = res["structuredContent"] if res.get("structuredContent") is not None else json.loads(joined)
         except ValueError:
-            return {"text": joined}
+            raise RyoError("failed", "tool returned non-JSON text: %s" % joined[:120])
+        obj = check_envelope(name, obj)
+        if not args:
+            self._cache[key] = obj
+        return obj
 
 
 def args_for(schema, symbol):
@@ -149,3 +170,19 @@ def args_for(schema, symbol):
     if required:
         raise RyoError("failed", "cannot map a token symbol onto required arguments: %s" % ", ".join(required))
     return {}
+
+
+def check_envelope(name, obj):
+    """Enforce the RYO public result contract (builder guide section 4).
+
+    - status "unavailable" is a failure, never zero data.
+    - data_mode "simulated" is not live evidence and is refused.
+    """
+    if not (isinstance(obj, dict) and "status" in obj and "data" in obj):
+        raise RyoError("failed", "%s: response is not a RYO result envelope" % name)
+    if obj["status"] == "unavailable":
+        head = (obj.get("summary") or {}).get("headline") or "; ".join(obj.get("warnings") or []) or "no usable evidence"
+        raise RyoError("unavailable", "%s reported unavailable: %s" % (name, str(head)[:200]))
+    if obj.get("data_mode") == "simulated":
+        raise RyoError("unavailable", "%s returned data_mode=simulated; not live, excluded" % name)
+    return obj

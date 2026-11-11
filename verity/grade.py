@@ -49,7 +49,10 @@ def grade_one(client: Client, receipt, now=None, force=False, root=None):
     if not entry:
         return store.update_grade(receipt["id"], {"grade_note": "cannot grade: no entry price was recorded"}, root)
     try:
-        price = find_price({"analyze_token": client.call("analyze_token", receipt["symbol"])})
+        env = client.call("analyze_token", receipt["symbol"])
+        if env.get("data_mode") != "live":
+            return store.update_grade(receipt["id"], {"grade_note": "grading deferred: data_mode=%s, not live" % env.get("data_mode")}, root)
+        price = find_price({"analyze_token": env.get("data", {})})
     except RyoError as e:
         return store.update_grade(receipt["id"], {"grade_note": "grading deferred: price call %s (%s)" % (e.status, e.message)}, root)
     if price is None:
