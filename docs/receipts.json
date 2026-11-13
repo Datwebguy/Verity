@@ -9,6 +9,195 @@
     "grade_return_pct": null,
     "grade_timestamp": null,
     "grade_window_hours": 24.0,
+    "id": "20261113T215845Z-BTC",
+    "invalidation": "No directional call; re-evaluate on the next receipt.",
+    "invalidation_price": null,
+    "practice_action": "watch",
+    "raw_evidence": {
+      "analyze_token": {
+        "reason": "RYO_MCP_KEY is not set",
+        "status": "unavailable",
+        "unavailable": true
+      },
+      "deep_analysis": {
+        "reason": "RYO_MCP_KEY is not set",
+        "status": "unavailable",
+        "unavailable": true
+      },
+      "market_overview": {
+        "reason": "RYO_MCP_KEY is not set",
+        "status": "unavailable",
+        "unavailable": true
+      },
+      "monitor_market_sentiment_shift": {
+        "reason": "RYO_MCP_KEY is not set",
+        "status": "unavailable",
+        "unavailable": true
+      }
+    },
+    "receipt_hash": "60c7412be7cbfbd27269d1b907c3cf924c6d2eeb06f5ab6967695d50ab21a169",
+    "symbol": "BTC",
+    "thesis": "Evidence is thin, mixed or incomplete (score +0); practice watch.",
+    "timestamp": "2026-11-13T21:58:45+00:00",
+    "tools": [
+      {
+        "detail": "RYO_MCP_KEY is not set",
+        "name": "analyze_token",
+        "status": "unavailable"
+      },
+      {
+        "detail": "RYO_MCP_KEY is not set",
+        "name": "deep_analysis",
+        "status": "unavailable"
+      },
+      {
+        "detail": "RYO_MCP_KEY is not set",
+        "name": "market_overview",
+        "status": "unavailable"
+      },
+      {
+        "detail": "RYO_MCP_KEY is not set",
+        "name": "monitor_market_sentiment_shift",
+        "status": "unavailable"
+      }
+    ]
+  },
+  {
+    "confidence": 0.2,
+    "entry_price": null,
+    "evidence_summary": "No parseable signals in tool output. Price not found in tool output, so no entry price is recorded.",
+    "grade": "pending",
+    "grade_note": null,
+    "grade_price": null,
+    "grade_return_pct": null,
+    "grade_timestamp": null,
+    "grade_window_hours": 24.0,
+    "id": "20261113T215845Z-ETH",
+    "invalidation": "No directional call; re-evaluate on the next receipt.",
+    "invalidation_price": null,
+    "practice_action": "watch",
+    "raw_evidence": {
+      "analyze_token": {
+        "reason": "RYO_MCP_KEY is not set",
+        "status": "unavailable",
+        "unavailable": true
+      },
+      "deep_analysis": {
+        "reason": "RYO_MCP_KEY is not set",
+        "status": "unavailable",
+        "unavailable": true
+      },
+      "market_overview": {
+        "reason": "RYO_MCP_KEY is not set",
+        "status": "unavailable",
+        "unavailable": true
+      },
+      "monitor_market_sentiment_shift": {
+        "reason": "RYO_MCP_KEY is not set",
+        "status": "unavailable",
+        "unavailable": true
+      }
+    },
+    "receipt_hash": "a274e980c643c473c26daeb6ebe6901ef3472bcf6df9b1dc9276556bfce72ce0",
+    "symbol": "ETH",
+    "thesis": "Evidence is thin, mixed or incomplete (score +0); practice watch.",
+    "timestamp": "2026-11-13T21:58:45+00:00",
+    "tools": [
+      {
+        "detail": "RYO_MCP_KEY is not set",
+        "name": "analyze_token",
+        "status": "unavailable"
+      },
+      {
+        "detail": "RYO_MCP_KEY is not set",
+        "name": "deep_analysis",
+        "status": "unavailable"
+      },
+      {
+        "detail": "RYO_MCP_KEY is not set",
+        "name": "market_overview",
+        "status": "unavailable"
+      },
+      {
+        "detail": "RYO_MCP_KEY is not set",
+        "name": "monitor_market_sentiment_shift",
+        "status": "unavailable"
+      }
+    ]
+  },
+  {
+    "confidence": 0.2,
+    "entry_price": null,
+    "evidence_summary": "No parseable signals in tool output. Price not found in tool output, so no entry price is recorded.",
+    "grade": "pending",
+    "grade_note": null,
+    "grade_price": null,
+    "grade_return_pct": null,
+    "grade_timestamp": null,
+    "grade_window_hours": 24.0,
+    "id": "20261113T215845Z-SOL",
+    "invalidation": "No directional call; re-evaluate on the next receipt.",
+    "invalidation_price": null,
+    "practice_action": "watch",
+    "raw_evidence": {
+      "analyze_token": {
+        "reason": "RYO_MCP_KEY is not set",
+        "status": "unavailable",
+        "unavailable": true
+      },
+      "deep_analysis": {
+        "reason": "RYO_MCP_KEY is not set",
+        "status": "unavailable",
+        "unavailable": true
+      },
+      "market_overview": {
+        "reason": "RYO_MCP_KEY is not set",
+        "status": "unavailable",
+        "unavailable": true
+      },
+      "monitor_market_sentiment_shift": {
+        "reason": "RYO_MCP_KEY is not set",
+        "status": "unavailable",
+        "unavailable": true
+      }
+    },
+    "receipt_hash": "d1efa321a87293c4818f4305b39896c226e0951ba771738c47aac0ffa2c109fc",
+    "symbol": "SOL",
+    "thesis": "Evidence is thin, mixed or incomplete (score +0); practice watch.",
+    "timestamp": "2026-11-13T21:58:45+00:00",
+    "tools": [
+      {
+        "detail": "RYO_MCP_KEY is not set",
+        "name": "analyze_token",
+        "status": "unavailable"
+      },
+      {
+        "detail": "RYO_MCP_KEY is not set",
+        "name": "deep_analysis",
+        "status": "unavailable"
+      },
+      {
+        "detail": "RYO_MCP_KEY is not set",
+        "name": "market_overview",
+        "status": "unavailable"
+      },
+      {
+        "detail": "RYO_MCP_KEY is not set",
+        "name": "monitor_market_sentiment_shift",
+        "status": "unavailable"
+      }
+    ]
+  },
+  {
+    "confidence": 0.2,
+    "entry_price": null,
+    "evidence_summary": "No parseable signals in tool output. Price not found in tool output, so no entry price is recorded.",
+    "grade": "pending",
+    "grade_note": null,
+    "grade_price": null,
+    "grade_return_pct": null,
+    "grade_timestamp": null,
+    "grade_window_hours": 24.0,
     "id": "20261113T152231Z-BTC",
     "invalidation": "No directional call; re-evaluate on the next receipt.",
     "invalidation_price": null,
@@ -571,7 +760,7 @@
     "entry_price": null,
     "evidence_summary": "No parseable signals in tool output. Price not found in tool output, so no entry price is recorded.",
     "grade": "pending",
-    "grade_note": null,
+    "grade_note": "cannot grade: no entry price was recorded",
     "grade_price": null,
     "grade_return_pct": null,
     "grade_timestamp": null,
@@ -634,7 +823,7 @@
     "entry_price": null,
     "evidence_summary": "No parseable signals in tool output. Price not found in tool output, so no entry price is recorded.",
     "grade": "pending",
-    "grade_note": null,
+    "grade_note": "cannot grade: no entry price was recorded",
     "grade_price": null,
     "grade_return_pct": null,
     "grade_timestamp": null,
@@ -697,7 +886,7 @@
     "entry_price": null,
     "evidence_summary": "No parseable signals in tool output. Price not found in tool output, so no entry price is recorded.",
     "grade": "pending",
-    "grade_note": null,
+    "grade_note": "cannot grade: no entry price was recorded",
     "grade_price": null,
     "grade_return_pct": null,
     "grade_timestamp": null,
