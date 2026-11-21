@@ -1,0 +1,63 @@
+{
+  "confidence": 0.2,
+  "entry_price": null,
+  "evidence_summary": "No parseable signals in tool output. Price not found in tool output, so no entry price is recorded.",
+  "grade": "pending",
+  "grade_note": null,
+  "grade_price": null,
+  "grade_return_pct": null,
+  "grade_timestamp": null,
+  "grade_window_hours": 24.0,
+  "id": "20261121T231343Z-BTC",
+  "invalidation": "No directional call; re-evaluate on the next receipt.",
+  "invalidation_price": null,
+  "practice_action": "watch",
+  "raw_evidence": {
+    "analyze_token": {
+      "reason": "RYO_MCP_KEY is not set",
+      "status": "unavailable",
+      "unavailable": true
+    },
+    "deep_analysis": {
+      "reason": "RYO_MCP_KEY is not set",
+      "status": "unavailable",
+      "unavailable": true
+    },
+    "market_overview": {
+      "reason": "RYO_MCP_KEY is not set",
+      "status": "unavailable",
+      "unavailable": true
+    },
+    "monitor_market_sentiment_shift": {
+      "reason": "RYO_MCP_KEY is not set",
+      "status": "unavailable",
+      "unavailable": true
+    }
+  },
+  "receipt_hash": "b5e081e7f30c1863f889f5801f93b338c0d419ab61a9fca6470d14230e14acd0",
+  "symbol": "BTC",
+  "thesis": "Evidence is thin, mixed or incomplete (score +0); practice watch.",
+  "timestamp": "2026-11-21T23:13:43+00:00",
+  "tools": [
+    {
+      "detail": "RYO_MCP_KEY is not set",
+      "name": "analyze_token",
+      "status": "unavailable"
+    },
+    {
+      "detail": "RYO_MCP_KEY is not set",
+      "name": "deep_analysis",
+      "status": "unavailable"
+    },
+    {
+      "detail": "RYO_MCP_KEY is not set",
+      "name": "market_overview",
+      "status": "unavailable"
+    },
+    {
+      "detail": "RYO_MCP_KEY is not set",
+      "name": "monitor_market_sentiment_shift",
+      "status": "unavailable"
+    }
+  ]
+}
