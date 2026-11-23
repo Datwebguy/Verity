@@ -3,7 +3,7 @@
   "entry_price": null,
   "evidence_summary": "No parseable signals in tool output. Price not found in tool output, so no entry price is recorded.",
   "grade": "pending",
-  "grade_note": null,
+  "grade_note": "cannot grade: no entry price was recorded",
   "grade_price": null,
   "grade_return_pct": null,
   "grade_timestamp": null,
